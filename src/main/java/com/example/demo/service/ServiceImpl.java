@@ -29,12 +29,17 @@ public class ServiceImpl implements Service {
     @Override
     @SneakyThrows(IOException.class)
     public void deserializeJson() {
-        logger.info("test");
-        List<Client> clients = Arrays.asList(mapper.treeToValue(mapper.readTree(clientRecords).get("rows"), Client[].class));
+        List<Client> clients = Arrays.asList(mapper.treeToValue(mapper.readTree(clientRecords).get("client"), Client[].class));
         logger.info(clients.toString());
 
         for (int i = 0; i < clients.size(); i++) {
-            clientRepository.insert(clients.get(i));
+           clientRepository.insert(clients.get(i));
         }
+
+    }
+
+    @Override
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
     }
 }

@@ -16,13 +16,13 @@ public class ClientController {
     private final Service service;
 
 
-    @GetMapping("")
-    ResponseEntity<Client> deserializeUser() {
-        service.deserializeJson();
-        return ResponseEntity.ok(null);
-    }
+//    @GetMapping("")
+//    ResponseEntity<Client> deserializeUser() {
+//        service.deserializeJson();
+//        return ResponseEntity.ok(null);
+//    }
 
-    @GetMapping()
+    @GetMapping("")
     public List<Client> showAllClient(){
         return service.getAllClients();
     }

@@ -39,11 +39,11 @@ public class DemoApplication {
             List<Client> clients = Arrays.asList(mapper.treeToValue(mapper.readTree(clientRecords).get("client"), Client[].class));
             logger.info(clients.toString());
 
-            for (int i = 0; i < clients.size(); i++) {
-                if (!clientRepository.findById(clients.get(i).getTicket()).isPresent()) {
-                    clientRepository.insert(clients.get(i));
+            clients.stream().forEach(s -> {
+                if (!clientRepository.findById(s.getTicket()).isPresent()) {
+                    clientRepository.insert(s);
                 }
-            }
+            });
         };
     }
 }

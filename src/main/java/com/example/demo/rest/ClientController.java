@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,15 +19,19 @@ public class ClientController {
 
     private final Service service;
     private final ClientRepository clientRepository;
+    private static final Logger logger = Logger.getLogger(ClientController.class.getName());
 
     @GetMapping("")
-    public List<Client> showAllClient() { return service.getAllClients(); }
+    public List<Client> showAllClient() {
+        return service.getAllClients();
+    }
 
     @GetMapping("{ticketId}")
-    public ResponseEntity<Client> findClient(@PathVariable int ticketId) {
+    public ResponseEntity<Client> findClientByTicket(@PathVariable int ticketId) {
+        //search ticket by ticketID
         Optional<Client> client = clientRepository.findById(ticketId);
         if (!client.isEmpty()) {
-            System.out.println(client);
+            logger.info(client.toString());
             return new ResponseEntity<Client>(HttpStatus.OK);
         } else {
             return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);

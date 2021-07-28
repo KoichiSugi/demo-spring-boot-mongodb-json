@@ -47,6 +47,12 @@ public class ClientController {
     }
 
     @SneakyThrows
+    @PostMapping("/clients")
+    public Client createTicket(@RequestBody Client client) {
+        return this.clientRepository.save(client);
+    }
+
+    @SneakyThrows
     @DeleteMapping("/clients/{ticketId}")
     public Map<String, Boolean> DeleteTicket(@PathVariable int ticketId) throws ResourceNotFoundException {
         Client clients = clientRepository.findById(ticketId)
@@ -68,11 +74,5 @@ public class ClientController {
         client.setProfit(clientDetails.getProfit());
         client.setComment(clientDetails.getComment());
         return ResponseEntity.ok(this.clientRepository.save(client));
-    }
-
-    @SneakyThrows
-    @PostMapping("/clients")
-    public Client createTicket(@RequestBody Client client) {
-        return this.clientRepository.save(client);
     }
 }

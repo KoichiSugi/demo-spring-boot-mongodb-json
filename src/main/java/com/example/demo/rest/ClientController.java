@@ -40,7 +40,7 @@ public class ClientController {
         Optional<Client> client = clientRepository.findById(ticketId);
         if (!client.isEmpty()) {
             logger.info(client.toString());
-            return new ResponseEntity<Client>(HttpStatus.OK);
+            return new ResponseEntity<Client>(client.get(),HttpStatus.OK);
         } else {
             return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
         }
